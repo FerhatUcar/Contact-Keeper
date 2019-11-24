@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
-import ContactState from "../../context/contact/ContactState";
 
 const ContactForm = () => {
     // initialize contact and access to all states
@@ -30,19 +29,27 @@ const ContactForm = () => {
 
     const { name, email, phone, type } = contact;
 
+
+    // On Change
     const onChange = e =>
         setContact({ ...contact, [e.target.name]: e.target.value });
 
+
+    // On Submit
     const onSubmit = e => {
         e.preventDefault();
 
         if (current === null) addContact(contact);
-        updateContact(contact);
+        else updateContact(contact);
 
         clearAll();
     };
 
+    // clear all
     const clearAll = () => clearCurrent();
+
+    // disable the submit button if the input are empty
+    const disabled = email === '' || name === '' || phone === '';
 
     return (
         <form onSubmit={onSubmit}>
@@ -92,6 +99,7 @@ const ContactForm = () => {
                     type='submit'
                     value={current ? 'Update Contact' : 'Add Contact'}
                     className='btn btn-primary btn-block'
+                    disabled={disabled}
                 />
             </div>
             {current && (
