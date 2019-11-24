@@ -5,13 +5,19 @@ import ContactContext from '../../context/contact/contactContext';
 const ContactItem = ({ contact }) => {
     // initialize contact and access to all states
     const contactContext = useContext(ContactContext);
+
     const { deleteContact, setCurrent, clearCurrent } = contactContext;
     const { id, name, email, phone, type } = contact;
+
+    const onDelete = () => {
+        deleteContact(id);
+        clearCurrent();
+    }
 
     return (
         <div className="card bg-light">
             <h3 className="text-primary text-left">
-                {id} - {name}{' '}
+                {name}{' '}
                 <span
                     style={{ float: 'right' }}
                     className={
@@ -20,7 +26,7 @@ const ContactItem = ({ contact }) => {
                     }
                 >
                     {/* Select the first letter and make it uppercase */}
-                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
                 </span>
             </h3>
             <ul className="list">
@@ -36,8 +42,8 @@ const ContactItem = ({ contact }) => {
                 )}
             </ul>
             <p>
-                <button className="btn btn-dark btn-sm">Edit</button>
-                <button className="btn btn-danger btn-sm">Delete</button>
+                <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
+                <button className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
             </p>
         </div>
     )
