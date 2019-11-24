@@ -187,7 +187,7 @@ img {
   display: inline-block;
   background: var(--light-color);
   color: #333;
-  padding: 0.4rem 1.3rem;
+  padding: 0.5rem 1.3rem;
   font-size: 1rem;
   border: none;
   cursor: pointer;
@@ -296,6 +296,10 @@ img {
 /* Forms */
 input {
   margin: 1.2rem 0;
+}
+
+input[type='radio'] {
+  margin: 0.5rem 0;
 }
 
 .form-text {
