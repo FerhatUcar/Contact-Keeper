@@ -1,0 +1,15 @@
+/// --- Mixins
+
+/// Flex
+@mixin flex($flex, $content, $items) {
+  display: $flex;
+  align-content: $content;
+  align-items: $items;
+}
+
+/// Grid
+@mixin grid($grid, $columns, $gap) {
+  display: $grid;
+  grid-template-columns: $columns;
+  grid-gap: $gap;
+}

@@ -1,0 +1,14 @@
+/// --- Grid
+@import "../partials/mixins";
+
+.grid-2 {
+  @include grid(grid, repeat(2, 1fr), 1rem);
+}
+
+.grid-3 {
+  @include grid(grid, repeat(3, 1fr), 1rem);
+}
+
+.grid-4 {
+  @include grid(grid, repeat(4, 1fr), 1rem);
+}

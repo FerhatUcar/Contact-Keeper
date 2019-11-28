@@ -1,0 +1,78 @@
+/// --- Navbar
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  z-index: 1;
+  width: 100%;
+  opacity: 0.9;
+  margin-bottom: 1rem;
+
+  ul {
+    display: flex;
+  }
+
+  .welcome {
+    span {
+      margin-right: 0.6rem;
+    }
+  }
+
+  a {
+    color: #fff;
+    padding-bottom: 0.45rem;
+    margin: 0 0.25rem;
+
+    &:hover {
+      color: var(--light-color);
+    }
+
+    @include position(relative, null null null null);
+
+    &:before,
+    &:after {
+      @include position(absolute, null 0 2px 0);
+      content: '';
+      height: 2px;
+      background-color: white;
+    }
+    &:before {
+      opacity: 0;
+      -webkit-transform: translateY(-5px);
+      transform: translateY(-5px);
+      transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s;
+    }
+    &:after {
+      opacity: 0;
+      -webkit-transform: translateY(4px);
+      transform: translateY(4px);
+      transition:
+              transform 0.2s
+              cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+    }
+
+    &:hover:before,
+    &:hover:after,
+    &:focus:before,
+    &:focus:after {
+      opacity: 1;
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+
+    &:hover:before,
+    &:focus:before {
+      transition:
+              transform 0.2s
+              cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+    }
+    &:hover:after,
+    &:focus:after {
+      transition:
+              transform 0s 0.2s
+              cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s 0.2s;
+    }
+  }
+}
