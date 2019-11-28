@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 
 // Get the user model
 const User = require('../models/User');
@@ -67,7 +67,6 @@ router.post('/', [
         res.status(500).send('Server error');
     }
 });
-
 
 // export router
 module.exports = router;
