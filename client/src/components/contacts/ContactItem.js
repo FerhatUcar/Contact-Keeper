@@ -15,7 +15,7 @@ const ContactItem = ({ contact }) => {
     }
 
     return (
-        <div className="card bg-light">
+        <div className="card card__space bg-light">
             <h3 className="text-primary text-left">
                 {name}{' '}
                 <span
@@ -41,10 +41,9 @@ const ContactItem = ({ contact }) => {
                     </li>
                 )}
             </ul>
-            <p>
-                <button className="btn btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
-                <button className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
-            </p>
+
+            <button className="btn btn__space--right btn-dark btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
+            <button className="btn btn__space--right btn-danger btn-sm" onClick={onDelete}>Delete</button>
         </div>
     )
 };
@@ -54,3 +53,4 @@ ContactItem.propTypes = {
 };
 
 export default ContactItem;
+
