@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // css
-import './App.css';
+import './assets/App.scss';
 
 // components
 import Navbar from "./components/layout/Navbar";
