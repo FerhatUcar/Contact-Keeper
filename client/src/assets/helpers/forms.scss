@@ -26,11 +26,20 @@ textarea {
   font-size: 1rem;
   border: 2px solid #ccc;
   transition: all .3s ease-in-out;
+}
 
-  &:focus {
-    border: 2px solid #478c00;
+form {
+  input {
+    &.error {
+      border-color: $danger;
+    }
+
+    &.success {
+      border-color: $success;
+    }
   }
 }
+
 
 input[type='submit'],
 button {

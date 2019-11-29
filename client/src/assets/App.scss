@@ -10,10 +10,10 @@
 
 /// --- components
 @import 'components/navbar';
-@import 'components/search';
 @import 'components/list';
 @import 'components/card';
 @import 'components/button';
+@import "components/alert";
 
 /// --- helpers
 @import 'helpers/grid';
@@ -139,14 +139,6 @@ img {
   justify-content: center;
   text-align: center;
   width: 30%;
-}
-
-.alert {
-  padding: 0.7rem;
-  margin: 1rem 0;
-  opacity: 1;
-  background: var(--light-color);
-  color: #333;
 }
 
 .round-img {
