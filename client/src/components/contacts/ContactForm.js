@@ -52,17 +52,16 @@ const ContactForm = () => {
 
 
     // On Change
-    const onChange = e => {
-        setContact({...contact, [e.target.name]: e.target.value});
-    };
+    const onChange = e => setContact({...contact, [e.target.name]: e.target.value});
+
 
     // On Submit
     const onSubmit = e => {
         e.preventDefault();
 
         // show error message when form is incomplete
-        if (inComplete || text === false) {
-            alertContext.setAlert('Please enter text', 'danger');
+        if (inComplete) {
+            alertContext.setAlert('Please fill out the form', 'danger');
             return false;
         }
 
@@ -76,10 +75,7 @@ const ContactForm = () => {
     // clear all
     const clearAll = () => clearCurrent();
 
-
     const errors = validate(name, email, phone);
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
-
 
     return (
         <Fragment>
@@ -137,7 +133,6 @@ const ContactForm = () => {
                         type='submit'
                         value={current ? 'Update Contact' : 'Add Contact'}
                         className='btn btn-primary btn-block btn__space--bottom'
-                        disabled={isDisabled}
                     />
                 </div>
 
