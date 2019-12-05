@@ -24,19 +24,19 @@ const ContactState = props => {
                 name: 'Ferhat Ucar',
                 email: 'test@gmail.com',
                 phone: '0628843263',
-                type: 'personal'
+                type: 'professional'
             }, {
                 id: 2,
                 name: 'Kezban Karaca',
-                email: 'test2@gmail.com',
+                email: 'karacakezban@outlook.com',
                 phone: '0628843264',
                 type: 'personal'
             }, {
                 id: 3,
-                name: 'Feriban Karucar',
-                email: 'test3@gmail.com',
-                phone: '0628843265',
-                type: 'professional'
+                name: 'Sinem Yilmaz',
+                email: 'yilmazs@live.nl',
+                phone: '0621712302',
+                type: 'personal'
             }
         ],
         current: null,
