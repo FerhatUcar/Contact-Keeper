@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ title, icon }) => {
+const Navbar = ({ title, title2, icon }) => {
     return (
         <div className="navbar bg-primary">
             <h1>
-                <i className={icon} /> {title}
+                <i className={icon} /> {title} <span>{title2}</span>
             </h1>
             <ul>
-                <li>
-                    <Link to="/">Home</Link>
-                    <Link to="/about">About</Link>
-                </li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/register">Register</Link></li>
+                <li><Link to="/login">Login</Link></li>
             </ul>
         </div>
     );
@@ -24,7 +24,8 @@ Navbar.propTypes = {
 };
 
 Navbar.defaultProps = {
-    title: 'Contact Keeper',
+    title: 'Contact',
+    title2: 'Keeper',
     icon: 'fas fa-id-card-alt'
 };
 

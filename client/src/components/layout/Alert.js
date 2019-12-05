@@ -3,14 +3,15 @@ import AlertContext from '../../context/alert/alertContext';
 
 const Alert = () => {
     const alertContext = useContext(AlertContext);
-    const { alert } = alertContext;
+    const { alerts } = alertContext;
 
     return (
-        alert !== null && (
-            <div className={`alert alert-${alert.type}`}>
+        alerts.length > 0 &&
+        alerts.map(alert => (
+            <div key={alert.id} className={`alert alert-${alert.type}`}>
                 <i className="fas fa-info-circle" /> {alert.msg}
             </div>
-        )
+        ))
     );
 };
 

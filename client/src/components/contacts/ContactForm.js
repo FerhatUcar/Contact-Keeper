@@ -2,8 +2,9 @@ import React, { useState, useContext, useEffect, Fragment } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 import AlertContext from '../../context/alert/alertContext';
 
-import Alert from "../../components/layout/Alert";
-
+import TextField from "@material-ui/core/TextField";
+import Button from '@material-ui/core/Button';
+import Checkbox from "@material-ui/core/Checkbox";
 
 function validate(name, email, phone) {
     // true means invalid, so our conditions got reversed
@@ -50,10 +51,8 @@ const ContactForm = () => {
     // check if form is incomplete
     const inComplete = email === '' || name === '' || phone === '';
 
-
     // On Change
     const onChange = e => setContact({...contact, [e.target.name]: e.target.value});
-
 
     // On Submit
     const onSubmit = e => {
@@ -75,65 +74,80 @@ const ContactForm = () => {
     // clear all
     const clearAll = () => clearCurrent();
 
-    const errors = validate(name, email, phone);
+    // const errors = validate(name, email, phone);
 
     return (
-        <Fragment>
-            <Alert />
+        <div className="contact-form">
             <form onSubmit={onSubmit}>
-                <h2 className='text-primary'>
-                    {current ? 'Edit Contact' : 'Add Contact'}
-                </h2>
-                <input
-                    className={errors.name ? "error" : "success"}
-                    type='text'
-                    placeholder='Name'
-                    name='name'
-                    value={name}
+                <h2>{current ? 'Edit Contact' : 'Add Contact'}</h2>
+
+                <TextField
+                    name="name"
+                    label="Name"
+                    type="text"
+                    variant="filled"
+                    defaultValue={name}
                     onChange={onChange}
                 />
-                <input
-                    className={errors.email ? "error" : "success"}
-                    type='email'
-                    placeholder='Email'
-                    name='email'
-                    value={email}
+
+                <TextField
+                    name="email"
+                    label="Email"
+                    type="email"
+                    variant="filled"
+                    defaultValue={email}
                     onChange={onChange}
                 />
-                <input
-                    className={errors.phone ? "error" : "success"}
-                    type='text'
-                    placeholder='Phone'
-                    name='phone'
-                    value={phone}
+
+                <TextField
+                    name="phone"
+                    label="Phone"
+                    type="phone"
+                    variant="filled"
+                    defaultValue={phone}
                     onChange={onChange}
                 />
+
+
                 <div className="contact-type">
                     <h4>Contact Type</h4>
-                    <input
-                        type='radio'
-                        name='type'
-                        value='personal'
+
+                    <Checkbox
                         checked={type === 'personal'}
                         onChange={onChange}
-                    />{' '}
-                    Personal{' '} <br/>
-                    <input
-                        type='radio'
                         name='type'
-                        value='professional'
+                        color="primary"
+                        value="personal"
+                        inputProps={{
+                            'aria-label': 'primary checkbox',
+                        }}
+                    />{' '}
+                    Personal{' '}
+
+                    <br/>
+
+                    <Checkbox
                         checked={type === 'professional'}
                         onChange={onChange}
+                        name='type'
+                        color="primary"
+                        type='radio'
+                        value='professional'
+                        inputProps={{
+                            'aria-label': 'primary checkbox',
+                        }}
                     />{' '}
                     Professional
+
                 </div>
 
                 <div>
-                    <input
+                    <Button
                         type='submit'
                         value={current ? 'Update Contact' : 'Add Contact'}
-                        className='btn btn-primary btn-block btn__space--bottom'
-                    />
+                        variant="contained"
+                        color="primary"
+                    >Add Contact</Button>
                 </div>
 
                 {current && (
@@ -144,7 +158,7 @@ const ContactForm = () => {
                     </div>
                 )}
             </form>
-        </Fragment>
+        </div>
     );
 };
 

@@ -1,6 +1,8 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 
+import TextField from '@material-ui/core/TextField';
+
 const ContactFilter = () => {
     const contactContext = useContext(ContactContext);
     const text = useRef('');
@@ -20,10 +22,13 @@ const ContactFilter = () => {
 
     return (
         <form>
-            <input
-                ref={text}
+            <TextField
+                id="filter"
+                inputRef={text}
                 type='text'
-                placeholder='Filter Contacts...'
+                variant="filled"
+                name="filter"
+                label='Filter Contacts...'
                 onChange={onChange}
             />
         </form>
