@@ -108,7 +108,7 @@
 .bg-primary,
 .badge-primary,
 .alert-primary {
-  background: var(--primary-color);
+  background: darken($primary, 10);
   color: #fff;
 }
 
@@ -126,6 +126,15 @@
 .alert-dark {
   background: var(--dark-color);
   color: #fff;
+}
+
+.btn-purple {
+  background: $purple;
+  color: white;
+
+  &:hover {
+    background-color: darken($purple, 10%);
+  }
 }
 
 .btn-danger,

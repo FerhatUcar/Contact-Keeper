@@ -17,15 +17,12 @@ input {
 input[type='text'],
 input[type='email'],
 input[type='password'],
+input[type='phone'],
 input[type='date'],
 select,
 textarea {
-  display: block;
   width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: 2px solid #ccc;
-  transition: all .3s ease-in-out;
+  color: white;
 }
 
 form {
@@ -45,4 +42,77 @@ input[type='submit'],
 button {
   font: inherit;
   cursor: pointer;
+}
+
+.form-container, .contact-form {
+  margin: 0 auto;
+}
+
+.form-container, .contact-form, .card-section {
+  max-width: 600px;
+  background-color: rgba(4, 76, 103, 0.9);
+  padding: 2rem;
+  border-radius: 1rem;
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.30), 0 3px 6px rgba(0, 0, 0, 0.35);
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .MuiButton-containedPrimary {
+    background-color: $purple;
+
+    &:hover {
+      background-color: darken($purple, 10%);
+    }
+  }
+
+  .MuiFormHelperText-contained {
+    margin: 0.5rem 0 0 0;
+  }
+
+  .MuiSvgIcon-root {
+    fill: white;
+  }
+
+  .MuiFormControl-root {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .MuiInputBase-root {
+    background-color: rgba(122, 122, 122, 0.5);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+
+  .MuiFormLabel-root {
+    color: rgba(255, 255, 255, 1);
+    font-family: "Abel", "Helvetica", "Arial", sans-serif;
+
+    &:active, &:focus {
+      color: white;
+    }
+
+    &.Mui-focused {
+      color: white;
+    }
+  }
+
+  .MuiFilledInput-underline {
+    &:after {
+      border-bottom: 2px solid $yellow;
+    }
+    &:hover {
+      &:before {
+        border-bottom: 1px solid rgba(255, 255, 255, 1);
+      }
+    }
+    &:before {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+    }
+  }
 }

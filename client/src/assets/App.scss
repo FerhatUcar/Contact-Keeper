@@ -3,6 +3,8 @@
 
 /// --- fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Abel|Bebas+Neue&display=swap');
 
 /// --- partials
 @import 'partials/var';
@@ -38,16 +40,37 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Abel', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #FFF;
-  color: #333;
+  color: #FFF;
+  background-size: cover;
+  background:
+          url("./img/4k.jpg")
+          no-repeat
+          no-repeat
+          center
+          center
+          fixed;
+}
+
+html {
+  height: 100%;
 }
 
 a {
   color: var(--primary-color);
   text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 2px;
+  color: white;
+
+  span {
+    color: $primary;
+  }
 }
 
 .bold {
