@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ContactContext from '../../context/contact/contactContext';
 import AlertContext from '../../context/alert/alertContext';
 
@@ -6,24 +6,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 import Checkbox from "@material-ui/core/Checkbox";
 
-function validate(name, email, phone) {
-    // true means invalid, so our conditions got reversed
-    return {
-        name: name.length === 0,
-        email: email.length === 0,
-        phone: phone.length === 0
-    };
-}
-
-
 const ContactForm = () => {
     // initialize contact and access to all states
     const contactContext = useContext(ContactContext);
     const alertContext = useContext(AlertContext);
 
     const { addContact, updateContact, clearCurrent, current } = contactContext;
-
-    const [text, setText] = useState('');
 
     useEffect(() => {
         if (current !== null) {
@@ -67,7 +55,6 @@ const ContactForm = () => {
         if (current === null) addContact(contact);
         else updateContact(contact);
 
-        setText('');
         clearAll();
     };
 

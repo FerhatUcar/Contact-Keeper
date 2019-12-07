@@ -26,12 +26,24 @@ const Login = props => {
         email: '',
         password: ''
     });
+    const [errEmail, setErrEmail] = useState(false);
+    const [errPassword, setErrPassword] = useState(false);
 
     const { email, password } = user;
 
 
     const onChange = e => {
         setUser({...user, [e.target.name]: e.target.value});
+    };
+
+    const onBlurEmail = () => {
+        if (email === '') setErrEmail(true);
+        else setErrEmail(false);
+    };
+
+    const onBlurPassword = () => {
+        if (password === '') setErrPassword(true);
+        else setErrPassword(false);
     };
 
     const onSubmit = e => {
@@ -61,9 +73,9 @@ const Login = props => {
                     variant="filled"
                     defaultValue={email}
                     onChange={onChange}
-
-                    error={email === ""}
-                    helperText={email === "" ? 'Required!' : ''}
+                    onBlur={onBlurEmail}
+                    error={errEmail}
+                    helperText={errEmail ? 'Required!' : ''}
                 />
 
                 <TextField
@@ -74,9 +86,9 @@ const Login = props => {
                     variant="filled"
                     defaultValue={password}
                     onChange={onChange}
-
-                    error={password === ""}
-                    helperText={password === "" ? 'Required!' : ''}
+                    onBlur={onBlurPassword}
+                    error={errPassword}
+                    helperText={errPassword ? 'Required!' : ''}
                 />
                 <Button
                     type='submit'

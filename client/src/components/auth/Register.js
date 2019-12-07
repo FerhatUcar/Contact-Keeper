@@ -24,6 +24,11 @@ const Register = props => {
         // eslint-disable-next-line
     }, [error, isAuthenticated, props.history]);
 
+    const [errName, setErrName] = useState(false);
+    const [errEmail, setErrEmail] = useState(false);
+    const [errPassword, setErrPassword] = useState(false);
+    const [errPassword2, setErrPassword2] = useState(false);
+
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -49,66 +54,78 @@ const Register = props => {
         }
     };
 
+    // when the user leaves the input without a value
+    const onBlur = () => {
+        if (name === '') setErrName(true);
+        else setErrName(false);
+    };
+
+    const onBlurEmail = () => {
+        if (email === '') setErrEmail(true);
+        else setErrEmail(false);
+    };
+
+    const onBlurPassword = () => {
+        if (password === '') setErrPassword(true);
+        else setErrPassword(false);
+    };
+
+    const onBlurPassword2 = () => {
+        if (password2 === '') setErrPassword2(true);
+        else setErrPassword2(false);
+    };
+
     return (
         <div className="form-container">
             <h1>Account <span className="text-primary">Register</span></h1>
 
             <form onSubmit={onSubmit}>
                 <TextField
-                    id="name"
                     name="name"
                     label="Name"
                     type="text"
                     variant="filled"
                     defaultValue={name}
                     onChange={onChange}
-
-                    error={name === ""}
-                    helperText={name === "" ? 'Required!' : ''}
+                    onBlur={onBlur}
+                    error={errName}
+                    helperText={errName ? 'Required!' : ''}
                 />
                 <TextField
-                    id="email"
                     name="email"
                     label="Email Address"
                     type="email"
                     variant="filled"
                     defaultValue={email}
                     onChange={onChange}
-
-                    error={email === ""}
-                    helperText={email === "" ? 'Required!' : ''}
+                    onBlur={onBlurEmail}
+                    error={errEmail}
+                    helperText={errEmail ? 'Required!' : ''}
                 />
                 <TextField
-                    id="password"
                     name="password"
                     label="Password"
                     type="password"
                     variant="filled"
                     defaultValue={password}
                     onChange={onChange}
-                    required
+                    onBlur={onBlurPassword}
                     minLength="6"
-
-                    error={password === ""}
-                    helperText={password === "" ? 'Required!' : ''}
+                    error={errPassword}
+                    helperText={errPassword ? 'Required!' : ''}
                 />
                 <TextField
-                    id="password2"
                     name="password2"
                     label="Confirm Password"
                     type="password"
                     variant="filled"
                     defaultValue={password2}
                     onChange={onChange}
-                    required
+                    onBlur={onBlurPassword2}
                     minLength="6"
-
-                    error={
-                        password2 === "" ||
-                        password2 !== password
-                    }
+                    error={errPassword2 || password2 !== password}
                     helperText={
-                        password2 === "" ? 'Required!' : '' ||
+                        errPassword2 ? 'Required!' : '' ||
                         password2 !== password ? 'Password doesnt match' : ''
                     }
                 />
