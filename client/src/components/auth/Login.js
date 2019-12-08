@@ -50,6 +50,15 @@ const Login = props => {
         e.preventDefault();
         if (email === '' || password === '') {
             setAlert('Please fill in all fields', 'danger');
+
+            if (email === '') setErrEmail(true);
+            else setErrEmail(false);
+
+            if (password === '') setErrPassword(true);
+            else setErrPassword(false);
+
+        } else if (password !== isAuthenticated) {
+            setAlert('Incorrect password or username', 'danger');
         } else {
             login({
                 email,

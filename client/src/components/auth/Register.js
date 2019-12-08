@@ -45,6 +45,19 @@ const Register = props => {
 
         if (name === '' || email === '' || password === '') {
             setAlert('Please enter all fields', 'danger');
+
+            if (name === '') setErrName(true);
+            else setErrName(false);
+
+            if (email === '') setErrEmail(true);
+            else setErrEmail(false);
+
+            if (password === '') setErrPassword(true);
+            else setErrPassword(false);
+
+            if (password2 === '') setErrPassword2(true);
+            else setErrPassword2(false);
+
         } else if (password !== password2) {
             setAlert('Passwords do not match', 'danger');
         } else {
