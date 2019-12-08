@@ -13,6 +13,10 @@ const ContactForm = () => {
 
     const { addContact, updateContact, clearCurrent, current } = contactContext;
 
+    const [errName, setErrName] = useState(false);
+    const [errEmail, setErrEmail] = useState(false);
+    const [errPhone, setErrPhone] = useState(false);
+
     useEffect(() => {
         if (current !== null) {
             setContact(current);
@@ -40,7 +44,25 @@ const ContactForm = () => {
     const inComplete = email === '' || name === '' || phone === '';
 
     // On Change
-    const onChange = e => setContact({...contact, [e.target.name]: e.target.value});
+    const onChange = e => {
+        setContact({...contact, [e.target.name]: e.target.value});
+        const input = e.target.value;
+
+        if (e.target.name === 'name') {
+            if (input === '') setErrName(true);
+            else setErrName(false);
+        }
+
+        if (e.target.name === 'email') {
+            if (input === '') setErrEmail(true);
+            else setErrEmail(false);
+        }
+
+        if (e.target.name === 'phone') {
+            if (input === '') setErrPhone(true);
+            else setErrPhone(false);
+        }
+    };
 
     // On Submit
     const onSubmit = e => {
@@ -49,6 +71,9 @@ const ContactForm = () => {
         // show error message when form is incomplete
         if (inComplete) {
             alertContext.setAlert('Please fill out the form', 'danger');
+            setErrName(true);
+            setErrEmail(true);
+            setErrPhone(true);
             return false;
         }
 
@@ -60,8 +85,6 @@ const ContactForm = () => {
 
     // clear all
     const clearAll = () => clearCurrent();
-
-    // const errors = validate(name, email, phone);
 
     return (
         <div className="contact-form">
@@ -75,6 +98,8 @@ const ContactForm = () => {
                     variant="filled"
                     defaultValue={name}
                     onChange={onChange}
+                    error={errName}
+                    helperText={errName ? 'Required!' : ''}
                 />
 
                 <TextField
@@ -84,6 +109,8 @@ const ContactForm = () => {
                     variant="filled"
                     defaultValue={email}
                     onChange={onChange}
+                    error={errEmail}
+                    helperText={errEmail ? 'Required!' : ''}
                 />
 
                 <TextField
@@ -93,6 +120,8 @@ const ContactForm = () => {
                     variant="filled"
                     defaultValue={phone}
                     onChange={onChange}
+                    error={errPhone}
+                    helperText={errPhone ? 'Required!' : ''}
                 />
 
 

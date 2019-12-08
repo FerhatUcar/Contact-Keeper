@@ -10,7 +10,12 @@ const Login = props => {
     const authContext = useContext(AuthContext);
 
     const { setAlert } = alertContext;
-    const { login, error, clearErrors, isAuthenticated } = authContext;
+    const {
+        login,
+        error,
+        clearErrors,
+        isAuthenticated
+    } = authContext;
 
     useEffect(() => {
         if (isAuthenticated) props.history.push('/');
@@ -31,23 +36,40 @@ const Login = props => {
 
     const { email, password } = user;
 
-
     const onChange = e => {
         setUser({...user, [e.target.name]: e.target.value});
+
+        const input = e.target.value;
+
+        if (e.target.name === 'email') {
+            if (input === '') setErrEmail(true);
+            else setErrEmail(false);
+        }
+
+        if (e.target.name === 'password') {
+            if (input === '') setErrPassword(true);
+            else setErrPassword(false);
+        }
     };
 
-    const onBlurEmail = () => {
-        if (email === '') setErrEmail(true);
-        else setErrEmail(false);
+    const onBlur = e => {
+        const input = e.target.value;
+
+        if (e.target.name === 'email') {
+            if (input === '') setErrEmail(true);
+            else setErrEmail(false);
+        }
+
+        if (e.target.name === 'password') {
+            if (password === '') setErrPassword(true);
+            else setErrPassword(false);
+        }
     };
 
-    const onBlurPassword = () => {
-        if (password === '') setErrPassword(true);
-        else setErrPassword(false);
-    };
 
     const onSubmit = e => {
         e.preventDefault();
+
         if (email === '' || password === '') {
             setAlert('Please fill in all fields', 'danger');
 
@@ -57,13 +79,19 @@ const Login = props => {
             if (password === '') setErrPassword(true);
             else setErrPassword(false);
 
-        } else if (password !== isAuthenticated) {
-            setAlert('Incorrect password or username', 'danger');
+        } else if (error === 'Invalid credentials') {
+            setAlert('Incorrect Password or Username', 'danger');
+            setErrPassword(true);
+            setErrEmail(true);
+            clearErrors();
         } else {
             login({
                 email,
                 password
             });
+
+            setErrPassword(false);
+            setErrEmail(false);
         }
     };
 
@@ -82,7 +110,7 @@ const Login = props => {
                     variant="filled"
                     defaultValue={email}
                     onChange={onChange}
-                    onBlur={onBlurEmail}
+                    onBlur={onBlur}
                     error={errEmail}
                     helperText={errEmail ? 'Required!' : ''}
                 />
@@ -95,7 +123,7 @@ const Login = props => {
                     variant="filled"
                     defaultValue={password}
                     onChange={onChange}
-                    onBlur={onBlurPassword}
+                    onBlur={onBlur}
                     error={errPassword}
                     helperText={errPassword ? 'Required!' : ''}
                 />

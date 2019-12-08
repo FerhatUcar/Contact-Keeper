@@ -38,7 +38,31 @@ const Register = props => {
 
     const { name, email, password, password2 } = user;
 
-    const onChange = e => setUser({...user, [e.target.name]: e.target.value});
+    const onChange = e => {
+        setUser({...user, [e.target.name]: e.target.value});
+
+        const input = e.target.value;
+
+        if (e.target.name === 'name') {
+            if (input === '') setErrName(true);
+            else setErrName(false);
+        }
+
+        if (e.target.name === 'email') {
+            if (input === '') setErrEmail(true);
+            else setErrEmail(false);
+        }
+
+        if (e.target.name === 'password') {
+            if (input === '') setErrPassword(true);
+            else setErrPassword(false);
+        }
+
+        if (e.target.name === 'password2') {
+            if (input === '') setErrPassword2(true);
+            else setErrPassword2(false);
+        }
+    };
 
     const onSubmit = e => {
         e.preventDefault();
@@ -68,24 +92,28 @@ const Register = props => {
     };
 
     // when the user leaves the input without a value
-    const onBlur = () => {
-        if (name === '') setErrName(true);
-        else setErrName(false);
-    };
+    const onBlur = e => {
+        const input = e.target.value;
 
-    const onBlurEmail = () => {
-        if (email === '') setErrEmail(true);
-        else setErrEmail(false);
-    };
+        if (e.target.name === 'name') {
+            if (input === '') setErrName(true);
+            else setErrName(false);
+        }
 
-    const onBlurPassword = () => {
-        if (password === '') setErrPassword(true);
-        else setErrPassword(false);
-    };
+        if (e.target.name === 'email') {
+            if (input === '') setErrEmail(true);
+            else setErrEmail(false);
+        }
 
-    const onBlurPassword2 = () => {
-        if (password2 === '') setErrPassword2(true);
-        else setErrPassword2(false);
+        if (e.target.name === 'password') {
+            if (input === '') setErrPassword(true);
+            else setErrPassword(false);
+        }
+
+        if (e.target.name === 'password2') {
+            if (input === '') setErrPassword2(true);
+            else setErrPassword2(false);
+        }
     };
 
     return (
@@ -111,7 +139,7 @@ const Register = props => {
                     variant="filled"
                     defaultValue={email}
                     onChange={onChange}
-                    onBlur={onBlurEmail}
+                    onBlur={onBlur}
                     error={errEmail}
                     helperText={errEmail ? 'Required!' : ''}
                 />
@@ -122,7 +150,7 @@ const Register = props => {
                     variant="filled"
                     defaultValue={password}
                     onChange={onChange}
-                    onBlur={onBlurPassword}
+                    onBlur={onBlur}
                     minLength="6"
                     error={errPassword}
                     helperText={errPassword ? 'Required!' : ''}
@@ -134,7 +162,7 @@ const Register = props => {
                     variant="filled"
                     defaultValue={password2}
                     onChange={onChange}
-                    onBlur={onBlurPassword2}
+                    onBlur={onBlur}
                     minLength="6"
                     error={errPassword2 || password2 !== password}
                     helperText={
