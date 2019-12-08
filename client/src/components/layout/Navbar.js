@@ -14,9 +14,7 @@ const Navbar = ({ title, title2, icon }) => {
     const { logout, user, isAuthenticated } = authContext;
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleClick = event => {
-        setAnchorEl(event.currentTarget);
-    };
+    const handleClick = event => setAnchorEl(event.currentTarget);
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -33,7 +31,8 @@ const Navbar = ({ title, title2, icon }) => {
             <li>
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                     <i className="fas fa-user" />
-                    { user && user.name }
+                    <span className="navbar__name">{ user && user.name }</span>
+                    <i className="fas fa-chevron-down"/>
                 </Button>
             </li>
             <Menu
@@ -49,7 +48,7 @@ const Navbar = ({ title, title2, icon }) => {
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <Link to="/about" className="menu-link">
-                        <i className="fas fa-user" /> About
+                        <i className="fas fa-info-circle" /> About
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>

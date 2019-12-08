@@ -10,6 +10,10 @@
   opacity: 0.9;
   margin-bottom: 1rem;
 
+  &__name {
+    margin-right: .5rem;
+  }
+
   .MuiButton-root {
     color: white
   }
@@ -91,6 +95,7 @@
   align-content: center;
   flex: 1;
   justify-content: flex-start;
+  color: #333333;
 
   i {
     margin-right: 0.5rem;
@@ -98,5 +103,5 @@
 }
 
 .MuiMenu-list {
-  min-width: 110px;
+  min-width: 160px !important;
 }

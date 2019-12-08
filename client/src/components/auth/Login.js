@@ -80,7 +80,7 @@ const Login = props => {
             else setErrPassword(false);
 
         } else if (error === 'Invalid credentials') {
-            setAlert('Incorrect Password or Username', 'danger');
+            setAlert(error, 'danger');
             setErrPassword(true);
             setErrEmail(true);
             clearErrors();
