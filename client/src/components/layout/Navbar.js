@@ -73,7 +73,7 @@ const Navbar = ({ title, title2, icon }) => {
     return (
         <div className="navbar bg-primary">
             <h1>
-                <i className={icon} /> {title} <span>{title2}</span>
+                {title} <span>{title2}</span>
             </h1>
             <ul>
                 { isAuthenticated ? authLinks : guestLinks }
@@ -83,14 +83,12 @@ const Navbar = ({ title, title2, icon }) => {
 };
 
 Navbar.propTypes = {
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
 };
 
 Navbar.defaultProps = {
     title: 'Contact',
-    title2: 'Keeper',
-    icon: 'fas fa-id-card-alt'
+    title2: 'Keeper'
 };
 
 export default Navbar;

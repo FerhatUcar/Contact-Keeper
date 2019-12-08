@@ -68,19 +68,23 @@ const ContactForm = () => {
     const onSubmit = e => {
         e.preventDefault();
 
-        // show error message when form is incomplete
-        if (inComplete) {
+        if (inComplete)
             alertContext.setAlert('Please fill out the form', 'danger');
+
+        // show error message when form is incomplete
+        if (name === '') {
             setErrName(true);
+        } else if (email === '') {
             setErrEmail(true);
+        } else if (phone === '') {
             setErrPhone(true);
-            return false;
+        } else if (current === null) {
+            addContact(contact);
+            clearAll();
+        } else {
+            updateContact(contact);
+            clearAll();
         }
-
-        if (current === null) addContact(contact);
-        else updateContact(contact);
-
-        clearAll();
     };
 
     // clear all

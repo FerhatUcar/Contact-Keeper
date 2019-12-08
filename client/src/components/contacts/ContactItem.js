@@ -16,7 +16,7 @@ const ContactItem = ({ contact }) => {
 
     return (
         <div className="card card__space bg-light">
-            <h3 className="text-primary text-left">
+            <h3 className="text-dark text-left">
                 {name}{' '}
                 <span
                     style={{ float: 'right' }}
