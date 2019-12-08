@@ -11,7 +11,9 @@ const Contact = require('../models/Contact');
 // @access    Private
 router.get('/', auth, async (req, res) => {
     try {
-        const contacts = await Contact.find({ user: req.user.id }).sort({
+        const contacts = await Contact.find({
+            user: req.user.id
+        }).sort({
             date: -1
         });
         await res.json(contacts);
@@ -35,9 +37,15 @@ router.post('/', [auth, [
     ],
     async (req, res) => {
         const errors = validationResult(req);
-        if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            });
+        }
 
         const { name, email, phone, type } = req.body;
+
+        console.log('komt erin')
 
         try {
             const newContact = new Contact({
@@ -57,6 +65,8 @@ router.post('/', [auth, [
         } catch (err) {
             // logs the error on the console
             console.error(er.message);
+
+            console.log('komt erin')
 
             // sends status message to the database
             res.status(500).send('Server Error');
@@ -84,10 +94,14 @@ router.put('/:id', auth, async (req, res) => {
         let contact = await Contact.findById(req.params.id);
 
         // if the contact doesn't exist
-        if (!contact) return res.status(404).json({ msg: 'Contact not found' });
+        if (!contact) {
+            return res.status(404).json({ msg: 'Contact not found' });
+        }
 
         // Make sure user owns contact
-        if (contact.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
+        if (contact.user.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'Not authorized' });
+        }
 
         contact = await Contact.findByIdAndUpdate(
             req.params.id,
@@ -120,7 +134,9 @@ router.delete('/:id', auth, async (req, res) => {
         if (!contact) return res.status(404).json({ msg: 'Contact not found' });
 
         // Make sure user owns contact
-        if (contact.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
+        if (contact.user.toString() !== req.user.id) {
+            return res.status(401).json({ msg: 'Not authorized' });
+        }
 
         await Contact.findByIdAndRemove(req.params.id);
 

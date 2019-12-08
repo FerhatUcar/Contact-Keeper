@@ -10,6 +10,14 @@
   opacity: 0.9;
   margin-bottom: 1rem;
 
+  .MuiButton-root {
+    color: white
+  }
+
+  .fas {
+    margin-right: 0.5rem;
+  }
+
   ul {
     display: flex;
   }
@@ -75,4 +83,20 @@
               cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s 0.2s;
     }
   }
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex: 1;
+  justify-content: flex-start;
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.MuiMenu-list {
+  min-width: 110px;
 }

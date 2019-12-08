@@ -42,6 +42,8 @@ router.post('/', [
     if (!errors.isEmpty()) {
         // sends status message to the database
         return res.status(400).json({errors: errors.array()});
+
+        console.log('komt erin')
     }
 
     // tip: password is now plane text
@@ -58,6 +60,9 @@ router.post('/', [
         // second parameter password: the password stored in the database
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({msg: 'Invalid credentials'});
+
+        console.log('komt erin')
+
 
         // send the token
         const payload = { user: { id: user.id }};
@@ -76,6 +81,9 @@ router.post('/', [
 
         // sends status message to the database
         res.status(500).send('Server error');
+
+
+        console.log('komt erin')
     }
 });
 
