@@ -45,8 +45,6 @@ router.post('/', [auth, [
 
         const { name, email, phone, type } = req.body;
 
-        console.log('komt erin')
-
         try {
             const newContact = new Contact({
                 name,
@@ -65,8 +63,6 @@ router.post('/', [auth, [
         } catch (err) {
             // logs the error on the console
             console.error(er.message);
-
-            console.log('komt erin')
 
             // sends status message to the database
             res.status(500).send('Server Error');
@@ -94,9 +90,7 @@ router.put('/:id', auth, async (req, res) => {
         let contact = await Contact.findById(req.params.id);
 
         // if the contact doesn't exist
-        if (!contact) {
-            return res.status(404).json({ msg: 'Contact not found' });
-        }
+        if (!contact) return res.status(404).json({ msg: 'Contact not found' });
 
         // Make sure user owns contact
         if (contact.user.toString() !== req.user.id) {
