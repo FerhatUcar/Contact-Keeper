@@ -53,10 +53,7 @@ const Navbar = ({ title, title2, icon }) => {
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <a onClick={onLogout} href="#!" className="menu-link">
-                        <i className="fas fa-sign-out-alt" />
-                        <span className="hide-sm">
-                        Logout
-                    </span>
+                        <i className="fas fa-sign-out-alt" /> Logout
                     </a>
                 </MenuItem>
             </Menu>
