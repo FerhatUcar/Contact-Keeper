@@ -39,7 +39,7 @@ export default (state, action) => {
                 // if its matches its going to send the new updated contact and replace that with the current one
                 // else its going to return whatever the original contact is
                 contacts: state.contacts.map(contact =>
-                    contact.id === action.payload.id ? action.payload : contact
+                    contact._id === action.payload._id ? action.payload : contact
                 ),
                 loading: false
             };
@@ -49,7 +49,7 @@ export default (state, action) => {
 
                 // filter the contact from the UI
                 contacts: state.contacts.filter(
-                    contact => contact.id !== action.payload
+                    contact => contact._id !== action.payload
                 ),
                 loading: false
             };
