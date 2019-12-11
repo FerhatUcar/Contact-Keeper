@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from "../../context/auth/authContext";
+import ContactContext from "../../context/contact/contactContext";
 
 
 import Button from '@material-ui/core/Button';
@@ -11,17 +12,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const Navbar = ({ title, title2, icon }) => {
     const authContext = useContext(AuthContext);
+    const contactContext = useContext(ContactContext);
+
     const { logout, user, isAuthenticated } = authContext;
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const { clearContacts } = contactContext;
+
+    const [ anchorEl, setAnchorEl ] = React.useState(null);
 
     const handleClick = event => setAnchorEl(event.currentTarget);
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const handleClose = () => setAnchorEl(null);
 
     const onLogout = () => {
         logout();
+        clearContacts();
     };
 
     // check if there is a user
