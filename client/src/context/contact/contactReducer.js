@@ -26,6 +26,7 @@ export default (state, action) => {
                 ...state,
 
                 // the state is immutable, so copy the state with contacts
+                // adding the contact on top of the rest of contacts
                 contacts: [action.payload, ...state.contacts],
 
                 loading: false
