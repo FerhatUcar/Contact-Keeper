@@ -42,8 +42,18 @@ const ContactItem = ({ contact }) => {
                 )}
             </ul>
 
-            <button className="btn btn__space--right btn-purple btn-sm" onClick={() => setCurrent(contact)}>Edit</button>
-            <button className="btn btn__space--right btn-danger btn-sm" onClick={onDelete}>Delete</button>
+            <button
+                className="btn btn__space--right btn-purple btn-sm"
+                onClick={() => setCurrent(contact)}
+            >
+                Edit
+            </button>
+            <button
+                className="btn btn__space--right btn-danger btn-sm"
+                onClick={onDelete}
+            >
+                Delete
+            </button>
         </div>
     )
 };

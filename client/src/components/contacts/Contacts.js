@@ -45,7 +45,9 @@ const Contacts = () => {
                         ))}
                 </TransitionGroup>
             ) : (
-                <Spinner />
+                <div className="spinner">
+                    <Spinner />
+                </div>
             )}
         </Fragment>
     );

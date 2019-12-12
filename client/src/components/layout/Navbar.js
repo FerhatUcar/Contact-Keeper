@@ -15,7 +15,7 @@ const Navbar = ({ title, title2, icon }) => {
     const contactContext = useContext(ContactContext);
 
     const { logout, user, isAuthenticated } = authContext;
-    const { clearContacts } = contactContext;
+    // const { clearContacts } = contactContext;
 
     const [ anchorEl, setAnchorEl ] = React.useState(null);
 
@@ -24,7 +24,7 @@ const Navbar = ({ title, title2, icon }) => {
 
     const onLogout = () => {
         logout();
-        clearContacts();
+        // clearContacts();
     };
 
     // check if there is a user
