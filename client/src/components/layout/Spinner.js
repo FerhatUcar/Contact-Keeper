@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
-import spinner from './spinner.gif';
 
 export default () => (
     <Fragment>
-        <img
-            src={spinner}
-            style={{ width: '200px', margin: 'auto', display: 'block' }}
-            alt='Loading...'
-        />
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45"/>
+        </svg>
     </Fragment>
 );
