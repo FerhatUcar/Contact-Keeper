@@ -49,9 +49,12 @@ const AuthState = props => {
 
     // Register User
     const register = async formData => {
+        const token = localStorage.Authorization;
+
         const config = {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             }
         };
 
@@ -63,7 +66,7 @@ const AuthState = props => {
                 payload: res.data
             });
 
-            await loadUser();
+            loadUser();
         } catch (err) {
             dispatch({
                 type: REGISTER_FAIL,
@@ -74,9 +77,12 @@ const AuthState = props => {
 
     // Login User
     const login = async formData => {
+        const token = localStorage.Authorization;
+
         const config = {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             }
         };
 
@@ -88,7 +94,7 @@ const AuthState = props => {
                 payload: res.data
             });
 
-            await loadUser();
+            loadUser();
         } catch (err) {
             dispatch({
                 type: LOGIN_FAIL,
