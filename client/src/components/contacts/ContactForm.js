@@ -100,7 +100,7 @@ const ContactForm = () => {
                     label="Name"
                     type="text"
                     variant="filled"
-                    defaultValue={name}
+                    value={name}
                     onChange={onChange}
                     error={errName}
                     helperText={errName ? 'Required!' : ''}
@@ -111,7 +111,7 @@ const ContactForm = () => {
                     label="Email"
                     type="email"
                     variant="filled"
-                    defaultValue={email}
+                    value={email}
                     onChange={onChange}
                     error={errEmail}
                     helperText={errEmail ? 'Required!' : ''}
@@ -122,7 +122,7 @@ const ContactForm = () => {
                     label="Phone"
                     type="phone"
                     variant="filled"
-                    defaultValue={phone}
+                    value={phone}
                     onChange={onChange}
                     error={errPhone}
                     helperText={errPhone ? 'Required!' : ''}
