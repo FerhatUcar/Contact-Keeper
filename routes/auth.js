@@ -1,13 +1,15 @@
 // login
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('config');
+
 const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-// Get the user model
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+
+// Get the User model
 const User = require('../models/User');
 
 
@@ -18,8 +20,12 @@ router.get('/', auth, async (req, res) => {
     try {
         // Get the user from the database
         // Do not return the password with select
-        const user = await User.findById(req.user.id).select('-password');
+        const user = await User
+            .findById(req.user.id)
+            .select('-password');
+
         res.json(user);
+
     } catch (err) {
         // logs the error on the console
         console.error(err.message);

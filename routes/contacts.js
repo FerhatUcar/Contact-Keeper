@@ -1,30 +1,32 @@
 const express = require('express');
 const router = express.Router();
+
 const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
-const User = require('../models/User');
+// Get the Contact model
 const Contact = require('../models/Contact');
+
 
 // @route     GET api/contacts
 // @desc      Get all users contacts
 // @access    Private
 router.get('/', auth, async (req, res) => {
-    try {
-        const contacts = await Contact.find({
-            user: req.user.id
-        }).sort({
-            date: -1
-        });
-        await res.json(contacts);
-    } catch (err) {
-        // logs the error on the console
-        console.error(err.message);
+    Contact.find()
+        .sort({ date: -1 })
+        .exec()
+        .then(contacts => {
+            res.status(200).json(contacts);
+        })
+        .catch(err => {
+            // logs the error on the console
+            console.error(err);
 
-        // sends status message to the database
-        res.status(500).send('Server Error');
-    }
+            // sends status message to the database
+            res.status(500).json({error: err})
+        });
 });
+
 
 // @route     POST api/contacts
 // @desc      Add new contact
@@ -38,9 +40,7 @@ router.post('/', [auth, [
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
-                errors: errors.array()
-            });
+            return res.status(400).json({errors: errors.array()});
         }
 
         const { name, email, phone, type } = req.body;
@@ -62,7 +62,7 @@ router.post('/', [auth, [
 
         } catch (err) {
             // logs the error on the console
-            console.error(er.message);
+            console.error(err.message);
 
             // sends status message to the database
             res.status(500).send('Server Error');
@@ -75,7 +75,8 @@ router.post('/', [auth, [
 // @desc      Update contact
 // @access    Private
 router.put('/:id', auth, async (req, res) => {
-    const { name, email, phone, type } = req.body;
+    const {name, email, phone, type} = req.body;
+    const id = req.params.id;
 
     // Build contact object
     const contactFields = {};
@@ -84,37 +85,30 @@ router.put('/:id', auth, async (req, res) => {
     if (phone) contactFields.phone = phone;
     if (type) contactFields.type = type;
 
-    try {
-        // find contact by id with params.id
-        // in the url: /:id
-        let contact = await Contact.findById(req.params.id);
 
-        // if the contact doesn't exist
-        if (!contact) return res.status(404).json({ msg: 'Contact not found' });
+    Contact.update({_id: id}, {$set: contactFields})
+        .exec()
+        .then(result => {
+            res.status(200).json(result);
 
-        // Make sure user owns contact
-        if (contact.user.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'Not authorized' });
-        }
+            // find contact by id with params.id
+            // in the url: /:id
+            let contact = Contact.findById(req.params.id);
 
-        contact = await Contact.findByIdAndUpdate(
-            req.params.id,
-            // set the contactfields above
-            { $set: contactFields },
-            // if the contact doesn't exist, lets create it
-            { new: true }
-        );
+            // if the contact doesn't exist
+            if (!contact) return res.status(404).json({ msg: 'Contact not found' });
 
-        // update the contact in the client
-        res.json(contact);
-
-    } catch (err) {
-        // logs the error on the console
-        console.error(er.message);
-
-        // sends status message to the database
-        res.status(500).send('Server Error');
-    }
+            // Make sure user owns contact
+            if (contact.user.toString() !== req.user.id) {
+                return res.status(401).json({ msg: 'Not authorized' });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 });
 
 
@@ -122,26 +116,18 @@ router.put('/:id', auth, async (req, res) => {
 // @desc      Delete contact
 // @access    Private
 router.delete('/:id', auth, async (req, res) => {
-    try {
-        let contact = await Contact.findById(req.params.id);
+    const id = req.params.id;
 
-        if (!contact) return res.status(404).json({ msg: 'Contact not found' });
+    Contact.remove({ _id: id })
+        .exec()
+        .then(result => {
 
-        // Make sure user owns contact
-        if (contact.user.toString() !== req.user.id) {
-            return res.status(401).json({ msg: 'Not authorized' });
-        }
-
-        await Contact.findByIdAndRemove(req.params.id);
-
-        await res.json({msg: 'Contact removed'});
-    } catch (err) {
-        // logs the error on the console
-        console.error(err.message);
-
-        // sends status message to the database
-        res.status(500).send('Server Error');
-    }
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: err});
+        });
 });
 
 module.exports = router;

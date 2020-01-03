@@ -22,6 +22,7 @@ router.post('/', [
         .isLength({min: 6})
 ], async (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
         // sends status message to the database
         return res.status(400).json({errors: errors.array()});
@@ -39,7 +40,11 @@ router.post('/', [
         if (user) return res.status(400).json({msg: 'User already exists'});
 
         // if the user doesn't exist, create a new user with the user model
-        user = new User({name, email, password});
+        user = new User({
+            name,
+            email,
+            password
+        });
 
         // encrypts the password and gives a hash version of the password
         const salt = await bcrypt.genSalt(10);
@@ -49,7 +54,7 @@ router.post('/', [
         await user.save();
         res.send('User saved');
 
-        const payload = { user: { id: user.id }};
+        const payload = { user: { _id: user.id }};
 
         // creates json web token
         jwt.sign(payload, config.get('jwtSecret'), {
