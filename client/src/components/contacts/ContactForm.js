@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+
 import ContactContext from '../../context/contact/contactContext';
 import AlertContext from '../../context/alert/alertContext';
 
@@ -12,6 +13,7 @@ const ContactForm = () => {
     const alertContext = useContext(AlertContext);
 
     const { addContact, updateContact, clearCurrent, current } = contactContext;
+    const { setAlert } = alertContext;
 
     const [errName, setErrName] = useState(false);
     const [errEmail, setErrEmail] = useState(false);
@@ -37,28 +39,29 @@ const ContactForm = () => {
         type: 'personal'
     });
 
+    // clear all
+    const clearAll = () => clearCurrent();
+
     // pull the variables from contact
     const { name, email, phone, type } = contact;
-
-    // check if form is incomplete
-    const inComplete = email === '' || name === '' || phone === '';
 
     // On Change
     const onChange = e => {
         setContact({...contact, [e.target.name]: e.target.value});
         const input = e.target.value;
+        const name = e.target.name;
 
-        if (e.target.name === 'name') {
+        if (name === 'name') {
             if (input === '') setErrName(true);
             else setErrName(false);
         }
 
-        if (e.target.name === 'email') {
+        if (name === 'email') {
             if (input === '') setErrEmail(true);
             else setErrEmail(false);
         }
 
-        if (e.target.name === 'phone') {
+        if (name === 'phone') {
             if (input === '') setErrPhone(true);
             else setErrPhone(false);
         }
@@ -68,16 +71,16 @@ const ContactForm = () => {
     const onSubmit = e => {
         e.preventDefault();
 
-        if (inComplete)
-            alertContext.setAlert('Please fill out the form', 'danger');
-
         // show error message when form is incomplete
-        if (name === '') {
+        if (name.length === 0) {
             setErrName(true);
-        } else if (email === '') {
+            setAlert('Please fill out the form', 'danger');
+        } else if (email.length === 0) {
             setErrEmail(true);
-        } else if (phone === '') {
+            setAlert('Please fill out the form', 'danger');
+        } else if (phone.length === 0) {
             setErrPhone(true);
+            setAlert('Please fill out the form', 'danger');
         } else if (current === null) {
             addContact(contact);
             clearAll();
@@ -86,9 +89,6 @@ const ContactForm = () => {
             clearAll();
         }
     };
-
-    // clear all
-    const clearAll = () => clearCurrent();
 
     return (
         <div className="contact-form">
@@ -100,7 +100,7 @@ const ContactForm = () => {
                     label="Name"
                     type="text"
                     variant="filled"
-                    value={name}
+                    defaultValue={name}
                     onChange={onChange}
                     error={errName}
                     helperText={errName ? 'Required!' : ''}
@@ -111,7 +111,7 @@ const ContactForm = () => {
                     label="Email"
                     type="email"
                     variant="filled"
-                    value={email}
+                    defaultValue={email}
                     onChange={onChange}
                     error={errEmail}
                     helperText={errEmail ? 'Required!' : ''}
@@ -122,7 +122,7 @@ const ContactForm = () => {
                     label="Phone"
                     type="phone"
                     variant="filled"
-                    value={phone}
+                    defaultValue={phone}
                     onChange={onChange}
                     error={errPhone}
                     helperText={errPhone ? 'Required!' : ''}
