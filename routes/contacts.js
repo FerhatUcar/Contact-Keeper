@@ -20,7 +20,7 @@ router.get('/', auth, (req, res, next) => {
         })
         .catch(err => {
             // logs the error on the console
-           next(err);
+            next(err);
 
             // sends status message to the database
             res.status(500).json({error: err})
@@ -101,7 +101,7 @@ router.put('/:id', auth, (req, res, next) => {
 router.delete('/:id', auth, (req, res, next) => {
     const id = req.params.id;
 
-    Contact.remove({ _id: id })
+    Contact.deleteOne({ _id: id })
         .exec()
         .then(result => res.status(200).json(result))
         .catch(err => {
