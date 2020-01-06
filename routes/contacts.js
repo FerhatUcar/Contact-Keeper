@@ -11,7 +11,7 @@ const Contact = require('../models/Contact');
 // @route     GET api/contacts
 // @desc      Get all users contacts
 // @access    Private
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, (req, res, next) => {
     Contact.find()
         .sort({ date: -1 })
         .exec()
@@ -20,7 +20,7 @@ router.get('/', auth, async (req, res) => {
         })
         .catch(err => {
             // logs the error on the console
-            console.error(err);
+           next(err);
 
             // sends status message to the database
             res.status(500).json({error: err})
@@ -37,7 +37,7 @@ router.post('/', [auth, [
             .isEmpty()
         ]
     ],
-    async (req, res) => {
+    async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({errors: errors.array()});
@@ -58,11 +58,11 @@ router.post('/', [auth, [
             const contact = await newContact.save();
 
             // return contact to the client
-            res.json(contact);
+            await res.json(contact);
 
         } catch (err) {
             // logs the error on the console
-            console.error(err.message);
+            next(err);
 
             // sends status message to the database
             res.status(500).send('Server Error');
@@ -74,7 +74,7 @@ router.post('/', [auth, [
 // @route     PUT api/contacts/:id
 // @desc      Update contact
 // @access    Private
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', auth, (req, res, next) => {
     const {name, email, phone, type} = req.body;
     const id = req.params.id;
 
@@ -85,29 +85,12 @@ router.put('/:id', auth, async (req, res) => {
     if (phone) contactFields.phone = phone;
     if (type) contactFields.type = type;
 
-
-    Contact.update({_id: id}, {$set: contactFields})
+    Contact.updateOne({_id: id}, {$set: contactFields})
         .exec()
-        .then(result => {
-            res.status(200).json(result);
-
-            // find contact by id with params.id
-            // in the url: /:id
-            let contact = Contact.findById(req.params.id);
-
-            // if the contact doesn't exist
-            if (!contact) return res.status(404).json({ msg: 'Contact not found' });
-
-            // Make sure user owns contact
-            if (contact.user.toString() !== req.user.id) {
-                return res.status(401).json({ msg: 'Not authorized' });
-            }
-        })
+        .then(result => res.status(200).json(result))
         .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+            next(err);
+            res.status(500).json({error: err});
         });
 });
 
@@ -115,17 +98,14 @@ router.put('/:id', auth, async (req, res) => {
 // @route     DELETE api/contacts/:id
 // @desc      Delete contact
 // @access    Private
-router.delete('/:id', auth, async (req, res) => {
+router.delete('/:id', auth, (req, res, next) => {
     const id = req.params.id;
 
     Contact.remove({ _id: id })
         .exec()
-        .then(result => {
-
-            res.status(200).json(result);
-        })
+        .then(result => res.status(200).json(result))
         .catch(err => {
-            console.log(err);
+            next(err);
             res.status(500).json({error: err});
         });
 });
