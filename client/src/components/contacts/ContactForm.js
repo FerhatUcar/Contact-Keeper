@@ -39,9 +39,6 @@ const ContactForm = () => {
         type: 'personal'
     });
 
-    // clear all
-    const clearAll = () => clearCurrent();
-
     // pull the variables from contact
     const { name, email, phone, type } = contact;
 
@@ -51,19 +48,21 @@ const ContactForm = () => {
         const input = e.target.value;
         const name = e.target.name;
 
-        if (name === 'name') {
-            if (input === '') setErrName(true);
-            else setErrName(false);
-        }
-
-        if (name === 'email') {
-            if (input === '') setErrEmail(true);
-            else setErrEmail(false);
-        }
-
-        if (name === 'phone') {
-            if (input === '') setErrPhone(true);
-            else setErrPhone(false);
+        switch (name) {
+            case 'name':
+                if (input.length === 0) setErrName(true);
+                else setErrName(false);
+                break;
+            case 'email':
+                if (input.length === 0) setErrEmail(true);
+                else setErrEmail(false);
+                break;
+            case 'phone':
+                if (input.length === 0) setErrPhone(true);
+                else setErrPhone(false);
+                break;
+            default:
+                return null;
         }
     };
 
@@ -83,10 +82,10 @@ const ContactForm = () => {
             setAlert('Please fill out the form', 'danger');
         } else if (current === null) {
             addContact(contact);
-            clearAll();
+            clearCurrent();
         } else {
             updateContact(contact);
-            clearAll();
+            clearCurrent();
         }
     };
 
@@ -128,7 +127,6 @@ const ContactForm = () => {
                     helperText={errPhone ? 'Required!' : ''}
                 />
 
-
                 <div className="contact-type">
                     <h4>Contact Type</h4>
 
@@ -141,10 +139,7 @@ const ContactForm = () => {
                         inputProps={{
                             'aria-label': 'primary checkbox',
                         }}
-                    />{' '}
-                    Personal{' '}
-
-                    <br/>
+                    />{' '} Personal{' '}
 
                     <Checkbox
                         checked={type === 'professional'}
@@ -156,8 +151,7 @@ const ContactForm = () => {
                         inputProps={{
                             'aria-label': 'primary checkbox',
                         }}
-                    />{' '}
-                    Professional
+                    />{' '} Professional
                 </div>
 
                 <div>
@@ -166,17 +160,15 @@ const ContactForm = () => {
                         variant="contained"
                         color="primary"
                         className="btn__space--right"
-                    >
-                        {current ? 'Update Contact' : 'Add Contact'}
+                    >{current ? 'Update Contact' : 'Add Contact'}
                     </Button>
 
                     {current && (
                         <Button
-                            onClick={clearAll}
+                            onClick={clearCurrent}
                             variant="contained"
                             color="primary"
-                        >
-                            Clear
+                        >Clear
                         </Button>
                     )}
                 </div>
