@@ -11,7 +11,9 @@ const Home = () => {
     // validate it and puts the user in state
     // so when the page is loaded the user is still authenticated
     useEffect(() => {
-        authContext.loadUser().then();
+        authContext.loadUser()
+            .then(res => console.log(res))
+            .catch(err => console.error(err.message))
         // eslint-disable-next-line
     }, []);
 

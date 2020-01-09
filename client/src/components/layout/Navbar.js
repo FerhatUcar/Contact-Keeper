@@ -58,6 +58,11 @@ const Navbar = ({ title, title2 }) => {
                     </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
+                    <Link to="/settings" className="menu-link">
+                        <i className="fas fa-cog" /> Settings
+                    </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
                     <a onClick={onLogout} href="#!" className="menu-link">
                         <i className="fas fa-sign-out-alt" /> Logout
                     </a>
@@ -86,7 +91,8 @@ const Navbar = ({ title, title2 }) => {
 };
 
 Navbar.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    title2: PropTypes.string.isRequired
 };
 
 Navbar.defaultProps = {
